@@ -21,7 +21,7 @@
 
 </div>
 
-[![自带智能体，任意渠道 —— CopilotKit 与 AG-UI 将任意智能体框架接入 Slack、Microsoft Teams、Discord、WhatsApp 和 Telegram，更多渠道正在规划中。](https://raw.githubusercontent.com/CopilotKit/CopilotKit/main/assets/bring-your-own-agent-any-channel.png)](https://go.copilotkit.ai/copilotkit-docs)
+[![自带智能体，任意渠道 —— CopilotKit 与 AG-UI 将任意智能体框架接入 Slack、Microsoft Teams、Discord、WhatsApp 和 Telegram，更多渠道正在规划中。](https://github.com/CopilotKit/CopilotKit/raw/main/assets/bring-your-own-agent-any-channel.png)](https://go.copilotkit.ai/copilotkit-docs)
 
 <div align="center" style="display:flex;justify-content:start;gap:16px;height:20px;margin: 0;">
   <a href="https://www.npmjs.com/package/@copilotkit/react-core" target="_blank">
