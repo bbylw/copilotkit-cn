@@ -5,7 +5,7 @@ export const site = {
   description:
     "CopilotKit 是构建智能体原生应用的 SDK,为 React、Vue、Angular、React Native、Slack 与 Microsoft Teams 提供生成式 UI、共享状态与人机协同工作流。",
   locale: "zh_CN",
-  url: "https://copilotkit.cn",
+  url: "https://copilotkit.ndjp.net",
   license: "MIT",
 } as const;
 
