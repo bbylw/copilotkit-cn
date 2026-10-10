@@ -1,0 +1,20 @@
+---
+import AgentPlayground from "../react/AgentPlayground";
+---
+
+<section class="relative py-20 md:py-28">
+  <div class="shell">
+    <div class="mb-9 grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-end">
+      <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.5rem]" data-reveal>
+        先跑一遍真实的回路
+      </h2>
+      <p class="max-w-[52ch] text-sm leading-relaxed text-mist-400 md:justify-self-end" data-reveal style="--reveal-delay: 60">
+        这不是录屏。下面的面板是一个实际在运行的组件，会依次演示工具调用、生成式界面、共享状态与人机协同审批。
+      </p>
+    </div>
+
+    <div data-reveal style="--reveal-delay: 120">
+      <AgentPlayground client:visible />
+    </div>
+  </div>
+</section>

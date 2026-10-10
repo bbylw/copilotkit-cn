@@ -1,0 +1,120 @@
+---
+import { features } from "../../data/features";
+
+const last = features.length - 1;
+---
+
+<section class="relative py-24 md:py-32">
+  <div class="shell">
+    <div class="mx-auto mb-12 max-w-[52ch] text-center md:mb-16">
+      <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.75rem]" data-reveal>
+        七块能力，同一个回路
+      </h2>
+      <p class="mt-5 leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+        这些能力不是七件独立的产品。聊天、工具、界面、状态与审批共享同一条事件通道，所以任何一处变化都会立刻反映到其余部分。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4" data-spotlight>
+      {
+        features.map((f, i) => (
+          <article
+            data-reveal
+            style={`--reveal-delay: ${(i % 4) * 60}`}
+            class:list={[
+              "spot-card group relative overflow-hidden rounded-2xl border border-white/8 bg-ink-900/60 p-6 transition-colors duration-300 hover:border-white/16 md:p-8",
+              i === last && "sm:col-span-2",
+            ]}
+          >
+            {
+              f.treatment === "grid" && (
+                <div class="hairline-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
+              )
+            }
+            {
+              f.treatment === "glow" && (
+                <div
+                  class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-45 blur-[70px] transition-opacity duration-500 group-hover:opacity-70"
+                  style="background: radial-gradient(closest-side, var(--color-brand-500), transparent)"
+                  aria-hidden="true"
+                />
+              )
+            }
+            {
+              f.treatment === "dots" && (
+                <div class="field pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+              )
+            }
+            {
+              f.treatment === "corner" && (
+                <div class="absolute inset-y-0 left-0 w-0.5 bg-brand-500/60" aria-hidden="true" />
+              )
+            }
+            {
+              f.treatment === "stripes" && (
+                <div
+                  class="pointer-events-none absolute inset-0 opacity-[0.13]"
+                  style="background-image: repeating-linear-gradient(135deg, var(--color-mist-50) 0 1px, transparent 1px 11px)"
+                  aria-hidden="true"
+                />
+              )
+            }
+            {
+              f.treatment === "rail" && (
+                <div
+                  class="pointer-events-none absolute inset-x-0 bottom-0 h-28"
+                  style="background: linear-gradient(to top, color-mix(in oklab, var(--color-brand-500) 22%, transparent), transparent)"
+                  aria-hidden="true"
+                />
+              )
+            }
+
+            <div
+              class:list={[
+                "relative flex h-full flex-col gap-2.5",
+                i === last && "items-center text-center",
+              ]}
+            >
+              <span class="mono-label text-brand-300">{f.kicker}</span>
+              <h3 class="text-xl font-medium text-mist-50">{f.title}</h3>
+              <p
+                class:list={[
+                  "text-sm leading-relaxed text-mist-400",
+                  i === last ? "max-w-[52ch]" : "max-w-[38ch]",
+                ]}
+              >
+                {f.body}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // One delegated pointermove for the whole grid. The coordinates must land on
+  // the hovered card itself: the ::after resolves --sx/--sy against each card's
+  // own box, so grid-relative values paint the wash outside every card that is
+  // not flush with the grid's top-left corner.
+  const grid = document.querySelector<HTMLElement>("[data-spotlight]");
+  if (grid && window.matchMedia("(pointer: fine)").matches) {
+    let raf = 0;
+    grid.addEventListener("pointermove", (event) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const card = (event.target as Element | null)?.closest?.(".spot-card") as
+          | HTMLElement
+          | null
+          | undefined;
+        if (card) {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--sx", `${event.clientX - rect.left}px`);
+          card.style.setProperty("--sy", `${event.clientY - rect.top}px`);
+        }
+        raf = 0;
+      });
+    });
+  }
+</script>

@@ -1,0 +1,207 @@
+---
+const outcomes = [
+  {
+    head: "智能体可以向用户请求输入",
+    note: "流式输出、审批、表单编辑",
+  },
+  {
+    head: "工具可以渲染界面",
+    note: "组件直接在客户端渲染",
+  },
+  {
+    head: "跨步骤、跨会话的有状态工作流",
+    note: "步骤之间保留上下文",
+  },
+  {
+    head: "一个智能体，部署到多处",
+    note: "Web、移动端与聊天平台",
+  },
+];
+
+const nodes = [
+  { zh: "界面", en: "SURFACE" },
+  { zh: "智能体", en: "AGENT" },
+  { zh: "工具", en: "TOOLS" },
+  { zh: "共享状态", en: "STATE" },
+];
+
+const centers = [130, 375, 620, 865];
+---
+
+<section class="relative border-y border-white/8 bg-ink-900/40 py-24 md:py-32">
+  <div class="shell">
+    <div class="mx-auto max-w-[36rem] text-center">
+      <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.75rem]" data-reveal>
+        闭环，而不是流水线
+      </h2>
+      <p class="mt-5 max-w-[52ch] leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+        CopilotKit 把界面、智能体与工具接进同一个交互回路。每一步的输出都能成为下一步的输入。
+      </p>
+    </div>
+
+    <div class="mt-14 hidden lg:block" data-reveal style="--reveal-delay: 100">
+      <svg viewBox="0 72 1000 232" class="h-auto w-full" role="img" data-packets data-loop aria-label="界面、智能体、工具与共享状态组成一个闭环，智能体可以随时向界面请求输入">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="currentColor"></path>
+          </marker>
+        </defs>
+
+        <g color="var(--color-mist-600)" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round">
+          <path id="loop-fwd-1" class="loop-edge" data-edge="loop-fwd-1" d="M232 130 H271" marker-end="url(#arrow)"></path>
+          <path id="loop-fwd-2" class="loop-edge" data-edge="loop-fwd-2" d="M477 130 H516" marker-end="url(#arrow)"></path>
+          <path id="loop-fwd-3" class="loop-edge" data-edge="loop-fwd-3" d="M722 130 H761" marker-end="url(#arrow)"></path>
+          <path id="loop-back" class="loop-edge" data-edge="loop-back" d="M865 168 V206 Q865 242 829 242 H166 Q130 242 130 206 V180" marker-end="url(#arrow)"></path>
+        </g>
+
+        <g color="var(--color-brand-400)" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="5 16" opacity="0.85">
+          <path class="dash-run loop-edge" data-edge="loop-fwd-1" d="M232 130 H271"></path>
+          <path class="dash-run loop-edge" data-edge="loop-fwd-2" d="M477 130 H516"></path>
+          <path class="dash-run loop-edge" data-edge="loop-fwd-3" d="M722 130 H761"></path>
+          <path class="dash-run loop-edge" data-edge="loop-back" d="M865 168 V206 Q865 242 829 242 H166 Q130 242 130 206 V180"></path>
+        </g>
+
+        <defs>
+          <path id="route-fwd" d="M222 130 H283 M467 130 H528 M712 130 H773" fill="none"></path>
+          <path id="route-back" d="M865 168 V206 Q865 242 829 242 H166 Q130 242 130 206 V180" fill="none"></path>
+        </defs>
+
+        <g aria-hidden="true">
+          <g opacity="0.9">
+            <circle r="7" fill="var(--color-brand-400)" opacity="0.22"></circle>
+            <circle r="3" fill="#c9c6ff"></circle>
+            <animateMotion dur="6.6s" repeatCount="indefinite">
+              <mpath href="#route-fwd"></mpath>
+            </animateMotion>
+          </g>
+          <g opacity="0.9">
+            <circle r="7" fill="var(--color-brand-400)" opacity="0.22"></circle>
+            <circle r="3" fill="#c9c6ff"></circle>
+            <animateMotion dur="6.6s" begin="-3.3s" repeatCount="indefinite">
+              <mpath href="#route-fwd"></mpath>
+            </animateMotion>
+          </g>
+          <g opacity="0.9">
+            <circle r="7" fill="var(--color-brand-400)" opacity="0.22"></circle>
+            <circle r="3" fill="#c9c6ff"></circle>
+            <animateMotion dur="5.2s" begin="-1.4s" repeatCount="indefinite">
+              <mpath href="#route-back"></mpath>
+            </animateMotion>
+          </g>
+        </g>
+
+        {
+          nodes.map((n, i) => {
+            const c = centers[i];
+            return (
+              <g class="loop-node" data-node={i}>
+                <rect
+                  x={c - 90}
+                  y={92}
+                  width="180"
+                  height="76"
+                  rx="16"
+                  fill="var(--color-ink-850)"
+                  stroke="var(--color-ink-700)"
+                  stroke-width="1"
+                />
+                <text
+                  x={c}
+                  y="123"
+                  text-anchor="middle"
+                  fill="var(--color-mist-50)"
+                  font-size="19"
+                  font-weight="500"
+                >
+                  {n.zh}
+                </text>
+                <text
+                  x={c}
+                  y="145"
+                  text-anchor="middle"
+                  fill="var(--color-mist-600)"
+                  font-size="10"
+                  letter-spacing="2.4"
+                  font-family="var(--font-mono)"
+                >
+                  {n.en}
+                </text>
+              </g>
+            );
+          })
+        }
+
+        <text
+          x="497"
+          y="288"
+          text-anchor="middle"
+          fill="var(--color-mist-600)"
+          font-size="13"
+        >
+          人机协同：请求输入 · 确认 · 编辑
+        </text>
+      </svg>
+    </div>
+
+    <ul class="mt-12 grid gap-4 lg:hidden">
+      {
+        outcomes.map((o) => (
+          <li class="surface p-5">
+            <p class="text-[0.9375rem] text-mist-100">{o.head}</p>
+            <p class="mt-1.5 text-sm text-mist-600">{o.note}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <ul class="mt-16 hidden grid-cols-2 gap-x-8 gap-y-10 lg:grid lg:grid-cols-4">
+      {
+        outcomes.map((o, i) => (
+          <li
+            class="border-l border-white/12 pl-5"
+            data-reveal
+            style={`--reveal-delay: ${i * 70}`}
+          >
+            <p class="text-[0.9375rem] leading-snug text-mist-100">{o.head}</p>
+            <p class="mt-2 text-sm text-mist-600">{o.note}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  // Hovering a node highlights its two incident edges. Decorative only:
+  // every fact is already present as plain text below the diagram.
+  const svg = document.querySelector("svg[data-loop]");
+  if (svg) {
+    const links = [
+      ["loop-back", "loop-fwd-1"],
+      ["loop-fwd-1", "loop-fwd-2"],
+      ["loop-fwd-2", "loop-fwd-3"],
+      ["loop-fwd-3", "loop-back"],
+    ];
+    const setHot = (edges: string[], on: boolean) => {
+      for (const id of edges) {
+        svg
+          .querySelectorAll(`[data-edge="${id}"]`)
+          .forEach((p) => p.classList.toggle("edge-hot", on));
+      }
+    };
+    let current = -1;
+    svg.addEventListener("pointerover", (event) => {
+      const target = event.target as Element | null;
+      const node = target?.closest?.("[data-node]");
+      const next = node ? Number(node.getAttribute("data-node")) : -1;
+      if (next === current) return;
+      if (current >= 0) setHot(links[current], false);
+      current = next;
+      if (current >= 0) setHot(links[current], true);
+    });
+    svg.addEventListener("pointerleave", () => {
+      if (current >= 0) setHot(links[current], false);
+      current = -1;
+    });
+  }
+</script>

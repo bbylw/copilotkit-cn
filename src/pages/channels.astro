@@ -1,0 +1,193 @@
+---
+import Base from "../layouts/Base.astro";
+
+import ArrowOut from "../components/ArrowOut.astro";
+import PageHero from "../components/sections/PageHero.astro";
+import { channels, channelRoadmap } from "../data/channels";
+import { statusMeta } from "../data/platforms";
+import { externalLinks } from "../data/site";
+
+const live = channels.filter((c) => c.live);
+const adapters = channels.filter((c) => !c.live);
+---
+
+<Base
+  title="渠道：一个智能体，覆盖所有聊天应用"
+  description="Channels SDK 把已经构建好的智能体直接投放到 Slack、Microsoft Teams、Discord、WhatsApp 与 Telegram。同样的工具、共享状态与人机协同，不需要重写。"
+  path="/channels"
+>
+  <PageHero
+    eyebrow="Channels SDK"
+    heading="一次编写，处处运行"
+    lede="Channels SDK 把你已经构建好的智能体直接投放到用户常驻的聊天应用。同样的工具、同样的共享状态、同样的人机协同，不需要重写。"
+    image={{
+      src: "/images/write-once.webp",
+      alt: "官方架构图：你的智能体经 AG-UI 接入 createChannel,一次接入分发到 Slack、Teams、Discord 等各聊天渠道",
+      width: 1600,
+      height: 900,
+    }}
+  />
+
+  <section class="py-20 md:py-28">
+    <div class="shell">
+      <div class="mb-10 flex flex-wrap items-baseline justify-between gap-4">
+        <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.25rem]" data-reveal>
+          已上线的渠道
+        </h2>
+        <span class="pill" data-reveal style="--reveal-delay: 60">Slack · Microsoft Teams</span>
+      </div>
+
+      <ul class="border-t border-white/10">
+        {
+          live.map((c, i) => {
+            const meta = statusMeta[c.status];
+            return (
+              <li
+                class="grid gap-5 border-b border-white/10 py-10 md:grid-cols-12 md:gap-10"
+                data-reveal
+                style={`--reveal-delay: ${i * 70}`}
+              >
+                <div class="md:col-span-3">
+                  <span class="mono-label inline-flex h-9 w-28 items-center justify-center rounded-lg border border-white/10 bg-ink-850 text-mist-300">
+                    {c.badge}
+                  </span>
+                </div>
+                <div class="md:col-span-6">
+                  <div class="flex flex-wrap items-center gap-3">
+                    <h3 class="text-xl font-medium text-mist-50">{c.name}</h3>
+                    <span class="flex items-center gap-2">
+                      <span
+                        class={`h-1 w-1 rounded-full ${meta.dot} ${meta.ring} ring-2`}
+                        aria-hidden="true"
+                      />
+                      <span class={`text-xs ${meta.text}`}>{c.statusLabel}</span>
+                    </span>
+                  </div>
+                  <p class="mt-3 max-w-[52ch] leading-relaxed text-mist-400">{c.body}</p>
+                </div>
+                <div class="md:col-span-3 md:pt-8">
+                  {
+                    c.docs && (
+                      <a
+                        href={c.docs}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="inline-flex items-center gap-1.5 text-sm text-brand-300 transition-colors hover:text-brand-200"
+                      >
+                        接入文档
+                        <ArrowOut />
+                      </a>
+                    )
+                  }
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-t border-white/8 py-20 md:py-28">
+    <div class="shell">
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <div class="lg:col-span-4">
+          <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.25rem]" data-reveal>
+            适配器已就绪
+          </h2>
+          <p class="mt-5 max-w-[40ch] leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+            以下渠道的 SDK 适配器已经可用，托管连接正在推进。接上适配器之后，你的智能体不需要为每个渠道重写一遍。
+          </p>
+        </div>
+
+        <ul class="lg:col-span-7 lg:col-start-6">
+          {
+            adapters.map((c, i) => {
+              const meta = statusMeta[c.status];
+              return (
+                <li
+                  class="flex flex-col gap-3 border-t border-white/8 py-6 sm:flex-row sm:items-start sm:gap-6"
+                  data-reveal
+                  style={`--reveal-delay: ${i * 70}`}
+                >
+                  <span class="mono-label inline-flex h-8 w-28 shrink-0 items-center justify-center rounded-md border border-white/10 bg-ink-850 text-mist-400">
+                    {c.badge}
+                  </span>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-2.5">
+                      <h3 class="text-[0.9375rem] font-medium text-mist-100">{c.name}</h3>
+                      <span class="flex items-center gap-1.5">
+                        <span
+                          class={`h-1 w-1 rounded-full ${meta.dot} ${meta.ring} ring-2`}
+                          aria-hidden="true"
+                        />
+                        <span class={`text-[11px] ${meta.text}`}>{c.statusLabel}</span>
+                      </span>
+                    </div>
+                    <p class="mt-1.5 max-w-[54ch] text-sm leading-relaxed text-mist-400">{c.body}</p>
+                  </div>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-white/8 py-20 md:py-28">
+    <div class="shell">
+      <div class="mb-10">
+        <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.25rem]" data-reveal>
+          路线图上的渠道
+        </h2>
+      </div>
+      <ul class="grid gap-x-10 gap-y-6 sm:grid-cols-3">
+        {
+          channelRoadmap.map((r, i) => (
+            <li
+              class="border-t border-dashed border-white/15 pt-5"
+              data-reveal
+              style={`--reveal-delay: ${i * 60}`}
+            >
+              <h3 class="text-[1.0625rem] font-medium text-mist-200">{r.name}</h3>
+              <p class="mt-2 max-w-[36ch] text-sm leading-relaxed text-mist-600">{r.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-12 max-w-[62ch] text-sm leading-relaxed text-mist-600" data-reveal>
+        以上三个渠道已在路线图中，时间表见官方渠道页面。渠道更新可以关注文档的 whats-new
+        页面。
+        <a
+          href="https://docs.copilotkit.ai/whats-new"
+          target="_blank"
+          rel="noreferrer noopener"
+          class="ml-1 whitespace-nowrap text-brand-300 transition-colors hover:text-brand-200"
+        >
+          查看最新动态
+        </a>
+      </p>
+
+      <div class="mt-12 flex flex-wrap gap-3" data-reveal style="--reveal-delay: 120">
+        <a
+          href="https://docs.copilotkit.ai/slack"
+          target="_blank"
+          rel="noreferrer noopener"
+          class="cta cta-primary btn-lg"
+        >
+          接入第一个渠道
+        </a>
+        <a
+          href={externalLinks.discord}
+          target="_blank"
+          rel="noreferrer noopener"
+          class="cta cta-ghost btn-lg"
+        >
+          加入开发者社区
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

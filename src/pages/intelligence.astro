@@ -1,0 +1,137 @@
+---
+import Base from "../layouts/Base.astro";
+
+import PageHero from "../components/sections/PageHero.astro";
+import { externalLinks } from "../data/site";
+
+const capabilities = [
+  {
+    n: "01",
+    kicker: "Rich Threads",
+    title: "富线程",
+    body: "对话可跨越刷新、设备与会话留存。消息、生成式界面与实时运行记录都会原样恢复，用户不会因为关掉页面而丢失上下文。",
+    points: ["跨刷新与跨设备恢复", "生成式界面完整重放", "运行记录可追溯"],
+  },
+  {
+    n: "02",
+    kicker: "User Memories",
+    title: "用户记忆",
+    body: "跨对话持久保存事实与偏好，按语义召回，而不是关键词匹配。用户说过一次的事，不需要反复交代。",
+    points: ["语义召回而非关键词匹配", "写入可审查可删除", "按用户隔离"],
+  },
+  {
+    n: "03",
+    kicker: "Automatic Learning",
+    title: "自动学习",
+    body: "已完成的线程会转化为有据可循的洞察，以及经过评审、可复用的技能，由你自己决定是否发布。不需要微调管线。",
+    points: ["洞察附带原始线程证据", "技能需人工评审后发布", "无需微调管线"],
+  },
+  {
+    n: "04",
+    kicker: "Product Analytics",
+    title: "产品分析",
+    body: "从同一份交互数据里，看清智能体在做什么，用户在哪里真正获得价值。不需要另外埋一套分析逻辑。",
+    points: ["行为与结果同源", "定位用户卡住的步骤", "与线程数据共享口径"],
+  },
+  {
+    n: "05",
+    kicker: "Self-hosting",
+    title: "私有化部署",
+    body: "同一套平台，运行在你自己的 Kubernetes 集群、VPC 或数据边界之内。托管平台与私有部署的能力一致。",
+    points: ["Kubernetes 与 VPC 内运行", "数据不出你的边界", "与托管版功能一致"],
+  },
+];
+
+const deployment = [
+  { head: "托管平台", body: "由 CopilotKit 运维，开通即可用。适合先把功能跑起来的团队。" },
+  { head: "私有化部署", body: "部署到你自己的基础设施，数据与运行记录都留在你的边界内。" },
+];
+---
+
+<Base
+  title="CopilotKit Intelligence1318：富线程、记忆与自动学习"
+  description="CopilotKit Intelligence 为智能体补上富线程、生成式界面、用户记忆、产品分析、检视与自动学习，支持私有化部署在你的 Kubernetes 集群或 VPC 内。"
+  path="/intelligence"
+>
+  <PageHero
+    eyebrow="Intelligence"
+    heading="让智能体从真实使用中变好"
+    lede="Intelligence 为你的智能体补上富线程、生成式界面、用户记忆、产品分析、检视与自动学习。它兼容你现有的应用与框架。"
+    note="既可以使用托管平台，也可以部署到你自己的基础设施里。"
+  />
+
+  <section class="py-20 md:py-28">
+    <div class="shell">
+      <ul class="border-t border-white/10">
+        {
+          capabilities.map((c, i) => (
+            <li
+              class="grid gap-6 border-b border-white/10 py-12 md:grid-cols-12 md:gap-10"
+              data-reveal
+              style={`--reveal-delay: ${i * 60}`}
+            >
+              <div class="flex items-baseline gap-4 md:col-span-1 md:block">
+                <span class="mono-label text-mist-600">{c.n}</span>
+              </div>
+              <div class="md:col-span-4">
+                <span class="mono-label text-brand-300">{c.kicker}</span>
+                <h2 class="mt-2.5 text-2xl font-medium text-mist-50">{c.title}</h2>
+                <p class="mt-3 max-w-[46ch] leading-relaxed text-mist-400">{c.body}</p>
+              </div>
+              <ul class="md:col-span-5 md:col-start-8 md:pt-10">
+                {c.points.map((p) => (
+                  <li class="flex items-baseline gap-3 border-t border-white/8 py-3 text-sm text-mist-300">
+                    <span class="h-1 w-1 shrink-0 translate-y-[-3px] rounded-full bg-brand-400" aria-hidden="true" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-t border-white/8 py-20 md:py-28">
+    <div class="shell">
+      <div class="mb-10">
+        <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.25rem]" data-reveal>
+          部署方式
+        </h2>
+        <p class="mt-5 max-w-[52ch] leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+          各套餐包含的具体能力请参阅官方概览。两种方式使用同一套平台。
+        </p>
+      </div>
+
+      <ul class="grid gap-4 md:grid-cols-2 md:gap-6">
+        {
+          deployment.map((d, i) => (
+            <li
+              class="surface p-7 transition-colors duration-300 hover:border-brand-500/30"
+              data-reveal
+              style={`--reveal-delay: ${i * 70}`}
+            >
+              <h3 class="text-lg font-medium text-mist-50">{d.head}</h3>
+              <p class="mt-2.5 max-w-[40ch] text-sm leading-relaxed text-mist-400">{d.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-12 flex flex-wrap gap-3" data-reveal style="--reveal-delay: 180">
+        <a
+          href="https://docs.copilotkit.ai/intelligence/overview"
+          target="_blank"
+          rel="noreferrer noopener"
+          class="cta cta-primary btn-lg"
+        >
+          阅读 Intelligence 概览
+        </a>
+        <a href={externalLinks.discord} target="_blank" rel="noreferrer noopener" class="cta cta-ghost btn-lg">
+          加入开发者社区
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

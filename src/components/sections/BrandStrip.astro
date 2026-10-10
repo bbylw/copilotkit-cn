@@ -1,0 +1,46 @@
+---
+import { brandLogos, type BrandSlug } from "../../data/brand-logos";
+
+const slugs: readonly BrandSlug[] = [
+  "react",
+  "nextdotjs",
+  "vuedotjs",
+  "angular",
+  "nodedotjs",
+  "langchain",
+  "langgraph",
+  "pydantic",
+  "crewai",
+  "anthropic",
+  "temporal",
+  "docker",
+  "kubernetes",
+  "github",
+];
+
+const logos = slugs.map((s) => brandLogos[s]).filter(Boolean);
+---
+
+<section class="border-b border-white/8 py-10 md:py-12">
+  <div class="shell">
+    <p class="mb-7 max-w-[52ch] text-sm leading-relaxed text-mist-600">
+      一个智能体后端，覆盖你已经在用的前端框架与智能体框架。AG-UI 负责线缆协议，各框架包负责界面层。
+    </p>
+    <ul class="flex flex-wrap items-center gap-x-10 gap-y-6 md:gap-x-14" aria-label="支持的技术栈与框架">
+      {
+        logos.map((logo) => (
+          <li>
+            <svg
+              viewBox="0 0 24 24"
+              class="h-6 w-6 fill-mist-600 transition-colors duration-300 hover:fill-mist-200 md:h-7 md:w-7"
+              role="img"
+              aria-label={logo.title}
+            >
+              <path d={logo.path} />
+            </svg>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

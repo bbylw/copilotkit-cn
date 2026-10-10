@@ -1,0 +1,95 @@
+---
+import ArrowOut from "../ArrowOut.astro";
+import { platforms, statusMeta, frameworkNote } from "../../data/platforms";
+---
+
+<section class="relative py-24 md:py-32">
+  <div class="shell">
+    <div class="mb-12">
+      <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.75rem]" data-reveal>
+        适配你的技术栈
+      </h2>
+      <p class="mt-5 max-w-[54ch] leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+        一个智能体后端，覆盖所有前端。同一份智能体逻辑，在不同框架与渠道上跑同一套交互。
+      </p>
+    </div>
+
+    <div class="overflow-x-auto" data-reveal style="--reveal-delay: 100">
+      <table class="w-full min-w-[42rem] border-collapse text-left">
+        <thead>
+          <tr class="border-b border-white/12">
+            <th scope="col" class="label-muted pb-3 pr-6 font-normal">平台</th>
+            <th scope="col" class="label-muted w-[19rem] pb-3 pr-6 font-normal">状态</th>
+            <th scope="col" class="label-muted pb-3 text-right font-normal">快速上手</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            platforms.map((p) => {
+              const meta = statusMeta[p.status];
+              return (
+                <tr class="group border-b border-white/6 transition-colors duration-200 hover:bg-white/3">
+                  <th scope="row" class="py-4 pr-6 text-[0.9375rem] font-normal text-mist-100">
+                    {p.platform}
+                  </th>
+                  <td class="py-4 pr-6">
+                    <span class="flex items-center gap-2.5">
+                      <span
+                        class={`h-1.5 w-1.5 shrink-0 rounded-full ring-4 ${meta.dot} ${meta.ring}`}
+                        aria-hidden="true"
+                      />
+                      <span class={`text-sm ${meta.text}`}>
+                        <span class="md:hidden">{p.statusLabelCompact}</span>
+                        <span class="hidden md:inline">{p.statusLabel}</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td class="py-4 text-right">
+                    <a
+                      href={p.href}
+                      target={p.external ? "_blank" : undefined}
+                      rel={p.external ? "noreferrer noopener" : undefined}
+                      class="inline-flex items-center gap-1.5 text-sm text-mist-400 transition-colors duration-200 group-hover:text-brand-300"
+                    >
+                      {p.action}
+                      <ArrowOut />
+                    </a>
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-8 max-w-[62ch] text-sm leading-relaxed text-mist-600" data-reveal>
+      {frameworkNote.text}
+      <a
+        href={frameworkNote.href}
+        target="_blank"
+        rel="noreferrer noopener"
+        class="ml-2 whitespace-nowrap text-brand-300 transition-colors hover:text-brand-200"
+      >
+        {frameworkNote.linkLabel}
+      </a>
+    </p>
+
+    <figure class="mt-12" data-reveal>
+      <div class="overflow-hidden rounded-2xl border border-white/10 bg-white">
+        <img
+          src="/images/agui-ecosystem.webp"
+          alt="AG-UI 官方文档截图（已裁剪）：你的应用经协议接入 LangGraph、LlamaIndex、Mastra 等智能体框架"
+          width={932}
+          height={336}
+          loading="lazy"
+          decoding="async"
+          class="h-auto w-full"
+        />
+      </div>
+      <figcaption class="mt-3 text-xs text-mist-600">
+        图源自 AG-UI 官方文档，已裁掉浏览器外框
+      </figcaption>
+    </figure>
+  </div>
+</section>

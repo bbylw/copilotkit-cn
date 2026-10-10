@@ -1,0 +1,89 @@
+---
+import { externalLinks } from "../../data/site";
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  lede: string;
+  /** Optional secondary line under the lede, kept to one sentence. */
+  note?: string;
+  /** Breadcrumb-style label shown next to the eyebrow. */
+  index?: string;
+  /** Optional full-width media strip rendered under the copy. */
+  image?: { src: string; alt: string; width: number; height: number };
+}
+
+const { eyebrow, heading, lede, note, index, image } = Astro.props;
+---
+
+<section class="relative overflow-hidden border-b border-white/8 pt-32 pb-16 md:pt-24 md:pb-24">
+  <div class="field pointer-events-none absolute inset-0 opacity-40" aria-hidden="true"></div>
+  <div
+    class="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[70rem] -translate-x-1/2 rounded-full opacity-[0.16] blur-[120px]"
+    style="background: radial-gradient(closest-side, var(--color-brand-500), transparent)"
+    aria-hidden="true"
+  >
+  </div>
+  {
+    !image && (
+      <div
+        class="pointer-events-none absolute top-1/3 right-[-18rem] h-[42rem] w-[42rem] rounded-full opacity-[0.13] blur-[130px]"
+        style="background: radial-gradient(closest-side, var(--color-brand-500), transparent)"
+        aria-hidden="true"
+      />
+    )
+  }
+
+  <div class="shell relative">
+    <div class="flex items-center gap-3">
+      <span class="label inline-flex items-center gap-2.5"><span class="h-px w-6 bg-brand-500/70"></span>{eyebrow}</span>
+      {index && <span class="pill">{index}</span>}
+    </div>
+
+    <h1 class="mt-6 text-[2.5rem] leading-[1.08] font-medium text-mist-50 md:text-[3.75rem]">
+      {heading}
+    </h1>
+
+    <p class="mt-6 max-w-[52ch] text-base leading-relaxed text-mist-400 md:text-lg">{lede}</p>
+
+    {
+      note && (
+        <p class="mt-4 max-w-[52ch] text-sm leading-relaxed text-mist-600">{note}</p>
+      )
+    }
+
+    <div class="mt-9 flex flex-wrap items-center gap-3">
+      <a href="/quickstart" class="cta cta-primary btn-lg">
+        快速开始
+      </a>
+      <a
+        href={externalLinks.github}
+        target="_blank"
+        rel="noreferrer noopener"
+        class="cta cta-ghost btn-lg"
+      >
+        GitHub 仓库
+      </a>
+    </div>
+
+    {
+      image && (
+        <figure
+          class="mt-14 overflow-hidden rounded-2xl border border-white/10"
+          data-reveal
+          style="--reveal-delay: 200"
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="lazy"
+            decoding="async"
+            class="aspect-[21/9] max-h-[22rem] w-full object-cover"
+          />
+        </figure>
+      )
+    }
+  </div>
+</section>

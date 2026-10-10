@@ -1,0 +1,60 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+
+import Hero from "../components/sections/Hero.astro";
+import BrandStrip from "../components/sections/BrandStrip.astro";
+import WhatIs from "../components/sections/WhatIs.astro";
+import Playground from "../components/sections/Playground.astro";
+import Features from "../components/sections/Features.astro";
+import HowItWorks from "../components/sections/HowItWorks.astro";
+import Frameworks from "../components/sections/Frameworks.astro";
+import UseAgent from "../components/sections/UseAgent.astro";
+import GenUi from "../components/sections/GenUi.astro";
+import Intelligence from "../components/sections/Intelligence.astro";
+import Channels from "../components/sections/Channels.astro";
+import ClosingCta from "../components/sections/ClosingCta.astro";
+---
+
+<Base
+  title="CopilotKit868：智能体原生应用的横向连接层"
+  description="CopilotKit 把生成式界面、共享状态与人机协同接入 React、Vue、Angular、React Native、Slack 与 Microsoft Teams。一个智能体，连通你所有界面。"
+  path="/"
+>
+  <Hero />
+  <BrandStrip />
+  <WhatIs />
+  <Playground />
+  <Features />
+  <HowItWorks />
+  <Frameworks />
+  <UseAgent />
+  <GenUi />
+  <Intelligence />
+  <Channels />
+  <ClosingCta />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "CopilotKit 和 AG-UI 协议是什么关系？",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "CopilotKit 团队同时也是 AG-UI 协议背后的团队。AG-UI 负责智能体与前端之间的线缆协议，CopilotKit 负责各框架与各渠道的界面层。",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "生成式界面有哪几种类型？",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "三种：基于 AG-UI 协议的静态组件注册、基于 A2UI 的声明式界面描述，以及基于 MCP Apps 与 Open JSON 的开放式资源返回。",
+        },
+      },
+    ],
+  })} is:inline />
+  <span class="sr-only">{site.name}</span>
+</Base>

@@ -1,0 +1,151 @@
+---
+import { externalLinks } from "../../data/site";
+
+const ticker = [
+  { kind: "工具调用", text: "searchFlights({ from: \"PVG\", to: \"NRT\" })" },
+  { kind: "状态写入", text: "agent.setState({ city: \"杭州\" })" },
+  { kind: "等待确认", text: "智能体已暂停，等待你的批准" },
+];
+
+const headline = "一个智能体，连通你所有界面";
+---
+
+<section
+  class="relative isolate flex min-h-[100dvh] items-center overflow-hidden pt-24 pb-14 md:pt-24 md:pb-20"
+  data-hero
+>
+  <div class="field pointer-events-none absolute inset-0 opacity-45" aria-hidden="true"></div>
+  <div
+    class="pointer-events-none absolute -top-56 -left-40 h-[42rem] w-[42rem] rounded-full opacity-[0.18] blur-[130px]"
+    style="background: radial-gradient(closest-side, var(--color-brand-500), transparent)"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute top-1/4 -right-40 h-[30rem] w-[30rem] rounded-full opacity-[0.12] blur-[110px]"
+    style="background: radial-gradient(closest-side, var(--color-brand-400), transparent); transform: translate3d(calc(var(--px, 0) * 52px), calc(var(--py, 0) * 30px), 0)"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="shell relative grid w-full items-center gap-10 lg:grid-cols-12 lg:gap-8">
+    <div class="lg:col-span-5">
+      <p class="label inline-flex items-center gap-2.5" data-reveal><span class="h-px w-6 bg-brand-500/70"></span>AG-UI 协议背后团队打造</p>
+
+      <h1
+        class="mt-6 text-[2.5rem] leading-[1.1] font-medium text-mist-50 md:text-[3.5rem] lg:text-[3.75rem]"
+        data-kinetic
+        aria-label={headline}
+      >
+        {
+          headline.split("").map((ch, i) => (
+            <span style={`--i: ${i}`} aria-hidden="true">
+              {ch}
+            </span>
+          ))
+        }
+      </h1>
+
+      <p
+        class="mt-6 max-w-[30ch] text-base leading-relaxed text-mist-400 md:max-w-[46ch] md:text-lg"
+        data-reveal
+        style="--reveal-delay: 120"
+      >
+        CopilotKit 把生成式界面、共享状态与人机协同接入 React、Vue、Angular、React Native、Slack 与 Teams。
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-3" data-reveal style="--reveal-delay: 180">
+        <a href="/quickstart" class="cta cta-primary btn-lg">快速开始</a>
+        <a
+          href={externalLinks.github}
+          target="_blank"
+          rel="noreferrer noopener"
+          class="cta cta-ghost btn-lg"
+        >
+          GitHub 仓库
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="relative lg:col-span-7 lg:col-start-6"
+      data-reveal="right"
+      style="--reveal-delay: 220; margin-right: calc(var(--pad) * -1)"
+    >
+      <div style="transform: translate3d(calc(var(--px, 0) * 10px), calc(var(--py, 0) * 12px), 0)">
+        <div class="relative aspect-[4/3] w-full overflow-hidden rounded-l-2xl border-y border-l border-white/10 bg-white lg:aspect-[16/10]">
+          <picture>
+            <source media="(prefers-reduced-motion: reduce)" srcset="/images/agent-flow-static.webp" />
+            <img
+              src="/images/agent-flow.webp"
+              alt="官方交互流程图：用户经界面与运行时，通过 AG-UI 协议连接智能体，共享状态、生成式界面、线程等能力贯穿两侧"
+              width={1440}
+              height={756}
+              fetchpriority="high"
+              decoding="async"
+              class="hero-settle h-full w-full object-cover"
+            />
+          </picture>
+          <div
+            class="pointer-events-none absolute inset-0"
+            style="background: linear-gradient(180deg, rgba(7,7,11,0.45) 0%, transparent 32%, rgba(7,7,11,0.9) 100%)"
+            aria-hidden="true"
+          >
+          </div>
+
+          <div class="absolute inset-x-0 bottom-0 border-t border-white/10 bg-ink-950/55 backdrop-blur-md">
+            <div class="flex items-end gap-4 p-5 md:p-7">
+              <div class="min-w-0 flex-1">
+                <p class="label-muted mb-2 flex items-center gap-2">
+                  <span class="pulse-dot h-1.5 w-1.5 rounded-full bg-brand-400" aria-hidden="true"></span>
+                  运行时事件
+                </p>
+                <div class="h-9 overflow-hidden">
+                  <ul class="ticker flex flex-col">
+                    {
+                      ticker.map((t) => (
+                        <li class="flex h-9 shrink-0 items-baseline gap-2.5 overflow-hidden">
+                          <span class="shrink-0 font-mono text-[10.5px] tracking-[0.14em] text-brand-300 uppercase">
+                            {t.kind}
+                          </span>
+                          <span class="truncate font-mono text-xs text-mist-400">{t.text}</span>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              </div>
+              <span class="pill hidden shrink-0 md:inline-flex">MIT · 开源</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const hero = document.querySelector<HTMLElement>("[data-hero]");
+  const fine = window.matchMedia("(pointer: fine)").matches;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (hero && fine && !reduce) {
+    let raf = 0;
+    const set = (x: number, y: number) => {
+      hero.style.setProperty("--px", x.toFixed(3));
+      hero.style.setProperty("--py", y.toFixed(3));
+    };
+    hero.addEventListener("pointermove", (event) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const rect = hero.getBoundingClientRect();
+        set(
+          ((event.clientX - rect.left) / rect.width) * 2 - 1,
+          ((event.clientY - rect.top) / rect.height) * 2 - 1,
+        );
+        raf = 0;
+      });
+    });
+    hero.addEventListener("pointerleave", () => set(0, 0));
+  }
+</script>

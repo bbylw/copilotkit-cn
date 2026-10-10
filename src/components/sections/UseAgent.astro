@@ -1,0 +1,69 @@
+---
+import CodeBlock from "../react/CodeBlock";
+import ArrowOut from "../ArrowOut.astro";
+
+const code = `// 以编程方式访问并控制你的智能体
+const { agent } = useAgent({ agentId: "my_agent" });
+
+// 渲染并更新智能体的状态
+return (
+  <div>
+    <h1>{agent.state.city}</h1>
+    <button onClick={() => agent.setState({ city: "杭州" })}>
+      设置城市
+    </button>
+  </div>
+);`;
+
+const points = [
+  {
+    head: "状态双向可写",
+    body: "界面写入 agent.setState,智能体下一次读取时拿到的是同一个值。",
+  },
+  {
+    head: "完整的编程控制",
+    body: "不需要把所有判断塞进提示词，条件分支留在代码里更可靠。",
+  },
+  {
+    head: "直接构建在 AG-UI 之上",
+    body: "useAgent 暴露的就是协议层，没有额外的抽象要绕过。",
+  },
+];
+---
+
+<section class="relative py-24 md:py-32">
+  <div class="shell">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7" data-reveal>
+        <CodeBlock code={code} lang="tsx" filename="use-agent.tsx" client:visible />
+      </div>
+
+      <div class="lg:col-span-4 lg:col-start-9">
+        <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.25rem]" data-reveal>
+          useAgent 钩子
+        </h2>
+        <ul class="mt-8 space-y-6 border-t border-white/10 pt-8">
+          {
+            points.map((p, i) => (
+              <li data-reveal style={`--reveal-delay: ${60 + i * 60}`}>
+                <h3 class="text-[0.9375rem] font-medium text-mist-100">{p.head}</h3>
+                <p class="mt-1.5 text-sm leading-relaxed text-mist-400">{p.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-8" data-reveal style="--reveal-delay: 260">
+          <a
+            href="https://docs.copilotkit.ai/programmatic-control"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="inline-flex items-center gap-1.5 text-sm text-brand-300 transition-colors hover:text-brand-200"
+          >
+            阅读 useAgent 文档
+            <ArrowOut />
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

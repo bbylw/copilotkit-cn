@@ -1,0 +1,37 @@
+---
+import GenUiTabs from "../react/GenUiTabs";
+---
+
+<section class="relative border-t border-white/8 py-24 md:py-32">
+  <div class="shell">
+    <div class="mb-12">
+      <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.75rem]" data-reveal>
+        生成式界面的三种类型
+      </h2>
+      <p class="mt-5 max-w-[54ch] leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+        生成式界面不是单选题。治理成本与自由度之间要取一个位置，下面三种类型对应三个不同的位置。
+      </p>
+    </div>
+
+    <div data-reveal style="--reveal-delay: 120">
+      <GenUiTabs client:visible />
+    </div>
+
+    <figure class="mx-auto mt-14 max-w-3xl" data-reveal style="--reveal-delay: 80">
+      <div class="overflow-hidden rounded-2xl border border-white/10 bg-white">
+        <img
+          src="/images/genui-table.webp"
+          alt="官方对比表：静态、开放式、声明式三种生成式界面的代表做法、优势与代价"
+          width={708}
+          height={311}
+          loading="lazy"
+          decoding="async"
+          class="h-auto w-full"
+        />
+      </div>
+      <figcaption class="mt-3 text-center text-xs text-mist-600">
+        官方对比：三种生成式界面的取舍各不相同
+      </figcaption>
+    </figure>
+  </div>
+</section>

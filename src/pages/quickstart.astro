@@ -1,0 +1,144 @@
+---
+import Base from "../layouts/Base.astro";
+
+import PageHero from "../components/sections/PageHero.astro";
+import ArrowOut from "../components/ArrowOut.astro";
+import CommandLine from "../components/react/CommandLine";
+import CodeBlock from "../components/react/CodeBlock";
+import ClosingCta from "../components/sections/ClosingCta.astro";
+import { externalLinks } from "../data/site";
+
+const paths = [
+  {
+    n: "01",
+    kicker: "ONBOARD",
+    title: "让编程智能体帮你接入",
+    body: "把命令交给你的编程智能体，它会检查项目结构并引导你完成集成。这一步不需要你手动改配置。",
+    code: "npx --yes copilotkit@latest onboard start",
+    hint: "在项目根目录运行",
+  },
+  {
+    n: "02",
+    kicker: "SKILLS",
+    title: "安装 agent skills",
+    body: "已经在使用 CopilotKit,或者刚完成接入？装上官方技能包，你的编程智能体就能构建功能、排查问题。",
+    code: "npx copilotkit@latest skills install",
+    hint: "面向编程智能体的技能包",
+  },
+  {
+    n: "03",
+    kicker: "CREATE",
+    title: "新建一个独立项目",
+    body: "在独立目录里搭一个全新的示例项目，不会改动你现有的应用。想先看效果再决定接入，选这条。",
+    code: "npx copilotkit@latest create",
+    hint: "不影响现有代码库",
+  },
+];
+
+const installs = [
+  { label: "bun", code: "bun add @copilotkit/react-core @copilotkit/react-ui" },
+  { label: "pnpm", code: "pnpm add @copilotkit/react-core @copilotkit/react-ui" },
+  { label: "npm", code: "npm install @copilotkit/react-core @copilotkit/react-ui" },
+  { label: "yarn", code: "yarn add @copilotkit/react-core @copilotkit/react-ui" },
+];
+
+const outcomes = [
+  { head: "聊天界面", body: "可定制的对话面板，带流式输出与工具调用展示。" },
+  { head: "生成式界面", body: "智能体在运行时渲染你的组件，而不是返回一段文本。" },
+  { head: "共享状态", body: "智能体与界面读写同一份数据，双向同步。" },
+  { head: "人机协同", body: "智能体在关键步骤暂停，等用户确认或编辑。" },
+];
+---
+
+<Base
+  title="快速开始：三条路径接入 CopilotKit"
+  description="CopilotKit 提供三条接入路径：让编程智能体引导接入、安装 agent skills、新建独立项目，并附 React 与 Next.js 项目的依赖安装命令。"
+  path="/quickstart"
+>
+  <PageHero
+    eyebrow="ONBOARDING"
+    heading="三种接入方式，选一条"
+    lede="每条路径都能独立完成一次完整接入。你可以交给编程智能体处理，也可以手动执行命令。"
+    note="接入命令在项目根目录运行，不会改动你已有的业务代码。"
+  />
+
+  <section class="py-20 md:py-28">
+    <div class="shell">
+      <ul class="timeline border-t border-white/10">
+        {paths.map((p, i) => (
+          <li
+            class="timeline-row grid gap-5 border-b border-white/10 py-9 md:gap-10"
+            data-reveal
+            style={`--reveal-delay: ${i * 70}`}
+          >
+            <div class="md:col-span-1 md:pt-0.5 md:text-center">
+              <span class="mono-label text-mist-600">{p.n}</span>
+            </div>
+            <div class="md:col-span-6">
+              <span class="mono-label text-brand-300">{p.kicker}</span>
+              <h2 class="mt-2.5 text-2xl font-medium text-mist-50">{p.title}</h2>
+              <p class="mt-3 max-w-[46ch] leading-relaxed text-mist-400">{p.body}</p>
+            </div>
+            <div class="md:col-span-5 md:pt-9">
+              <CommandLine code={p.code} hint={p.hint} client:visible />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-t border-white/8 py-20 md:py-28">
+    <div class="shell">
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-5">
+          <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.25rem]" data-reveal>
+            安装依赖
+          </h2>
+          <p class="mt-5 max-w-[44ch] leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+            React 与 Next.js 项目安装核心包。Vue、Angular、React Native 使用各自 packages 目录下的包，接入方式见官方文档。
+          </p>
+          <p class="mt-6" data-reveal style="--reveal-delay: 120">
+            <a
+              href={externalLinks.npm}
+              target="_blank"
+              rel="noreferrer noopener"
+              class="inline-flex items-center gap-1.5 text-sm text-brand-300 transition-colors hover:text-brand-200"
+            >
+              查看 npm 上的 @copilotkit/react-core
+              <ArrowOut />
+            </a>
+          </p>
+        </div>
+
+        <div class="lg:col-span-6 lg:col-start-7" data-reveal style="--reveal-delay: 100">
+          <CodeBlock
+            code={installs[0].code}
+            lang="bash"
+            filename="安装核心包"
+            snippets={installs}
+            client:visible
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-white/8 py-20 md:py-28">
+    <div class="shell">
+      <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.25rem]" data-reveal>
+        接入之后
+      </h2>
+      <ul class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        {outcomes.map((o, i) => (
+          <li class="border-t border-white/12 pt-5" data-reveal style={`--reveal-delay: ${i * 60}`}>
+            <h3 class="text-[1.0625rem] font-medium text-mist-200">{o.head}</h3>
+            <p class="mt-2 max-w-[42ch] text-sm leading-relaxed text-mist-600">{o.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <ClosingCta />
+</Base>

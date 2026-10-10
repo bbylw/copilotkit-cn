@@ -1,0 +1,75 @@
+---
+import { channels, channelPremise } from "../../data/channels";
+import { statusMeta } from "../../data/platforms";
+import ArrowOut from "../ArrowOut.astro";
+---
+
+<section class="relative py-24 md:py-32">
+  <div class="shell">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-4">
+        <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.5rem]" data-reveal>
+          {channelPremise.headline}
+        </h2>
+        <p class="mt-5 max-w-[42ch] leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+          {channelPremise.body}
+        </p>
+        <p class="mt-6" data-reveal style="--reveal-delay: 120">
+          <a
+            href="/channels"
+            class="inline-flex items-center gap-1.5 text-sm text-brand-300 transition-colors hover:text-brand-200"
+          >
+            查看全部渠道
+            <ArrowOut />
+          </a>
+        </p>
+      </div>
+
+      <ul class="lg:col-span-7 lg:col-start-6">
+        {
+          channels.map((c, i) => {
+            const meta = statusMeta[c.status];
+            return (
+              <li
+                class="group flex flex-col gap-3 border-t border-white/8 py-6 transition-colors duration-300 hover:bg-white/2 sm:flex-row sm:items-start sm:gap-6"
+                data-reveal
+                style={`--reveal-delay: ${i * 60}`}
+              >
+                <span class="mono-label inline-flex h-8 w-[5.5rem] shrink-0 items-center justify-center rounded-md border border-white/10 bg-ink-850 text-[10.5px] text-mist-400 transition-colors duration-300 group-hover:border-brand-500/40 group-hover:text-mist-100">
+                  {c.badge}
+                </span>
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-center gap-2.5">
+                    <h3 class="text-[0.9375rem] font-medium text-mist-100">{c.name}</h3>
+                    <span class="flex items-center gap-1.5">
+                      <span
+                        class={`h-1 w-1 rounded-full ${meta.dot} ${meta.ring} ring-2`}
+                        aria-hidden="true"
+                      />
+                      <span class={`text-[11px] ${meta.text}`}>{c.statusLabel}</span>
+                    </span>
+                  </div>
+                  <p class="mt-1.5 max-w-[56ch] text-sm leading-relaxed text-mist-400">{c.body}</p>
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+
+    <figure class="mt-14" data-reveal>
+      <div class="overflow-hidden rounded-2xl border border-white/10 bg-white">
+        <img
+          src="/images/any-channel.webp"
+          alt="官方渠道矩阵：同一智能体可投放的聊天渠道与可接入的智能体框架一览"
+          width={1600}
+          height={900}
+          loading="lazy"
+          decoding="async"
+          class="h-auto w-full"
+        />
+      </div>
+    </figure>
+  </div>
+</section>

@@ -1,0 +1,107 @@
+---
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/jetbrains-mono";
+import "../styles/global.css";
+
+import { site, externalLinks } from "../data/site";
+import Nav from "../components/react/Nav";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path of the current page, used for canonical + nav active state. */
+  path: string;
+}
+
+const { title, description, path } = Astro.props;
+const canonical = new URL(path, site.url).href;
+const ogImage = new URL("/images/og-flow.png", site.url).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: site.name,
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "跨平台",
+  description: site.description,
+  url: site.url,
+  license: site.license,
+  codeRepository: externalLinks.github,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+};
+---
+
+<!doctype html>
+<html lang="zh-CN" style="color-scheme: dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href={canonical} />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#07070b" />
+    <meta name="color-scheme" content="dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" href="/images/copilotkit-kite.png" />
+    <link rel="apple-touch-icon" href="/images/copilotkit-kite.png" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  </head>
+
+  <body class="grain min-h-[100dvh] bg-ink-950 text-mist-50 antialiased">
+    <a
+      href="#main"
+      class="sr-only rounded-full focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:bg-brand-500 focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+    >
+      跳到主要内容
+    </a>
+
+    <Nav currentPath={path} client:load />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<script>
+  const targets = document.querySelectorAll<HTMLElement>("[data-reveal]");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduce || !("IntersectionObserver" in window)) {
+    targets.forEach((el) => el.classList.add("is-in"));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.08 },
+    );
+    targets.forEach((el) => io.observe(el));
+  }
+
+  // SMIL packet loops have no CSS off-switch, so freeze them for reduced motion.
+  if (reduce) {
+    document.querySelectorAll("svg[data-packets]").forEach((svg) => {
+      (svg as unknown as SVGSVGElement).pauseAnimations();
+    });
+  }
+</script>

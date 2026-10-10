@@ -1,0 +1,46 @@
+---
+import { externalLinks } from "../../data/site";
+import ArrowOut from "../ArrowOut.astro";
+---
+
+<section class="relative overflow-hidden py-24 md:py-36">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute top-1/2 -right-10 hidden -translate-y-1/2 select-none md:block lg:right-0"
+  >
+    <span class="latin outline-word float-slow text-[19vw] leading-none font-bold">AG-UI</span>
+  </div>
+
+  <div class="shell relative">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-5">
+        <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.75rem]" data-reveal>
+          它是横向连接层
+        </h2>
+      </div>
+
+      <div class="space-y-6 lg:col-span-6 lg:col-start-7">
+        <p class="max-w-[58ch] text-lg leading-relaxed text-mist-200" data-reveal>
+          CopilotKit 是一个用于构建全栈智能体应用、生成式界面与聊天应用的 SDK。它最初是一个 React 库，如今站在你的智能体与用户之间。
+        </p>
+        <p class="max-w-[58ch] leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+          同一个智能体，既能驱动 Web 应用，也能驱动移动应用，以及团队日常工作的 Slack 与 Microsoft Teams 工作区。你的智能体逻辑不需要改动。
+        </p>
+        <p class="max-w-[58ch] leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 120">
+          我们正是 AG-UI 协议背后的团队。该协议已被 Google、LangChain、AWS、Microsoft、Mastra、PydanticAI 采用。
+        </p>
+        <p data-reveal style="--reveal-delay: 180">
+          <a
+            href={externalLinks.agui}
+            target="_blank"
+            rel="noreferrer noopener"
+            class="inline-flex items-center gap-1.5 text-sm text-brand-300 transition-colors hover:text-brand-200"
+          >
+            阅读 AG-UI 协议
+            <ArrowOut />
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

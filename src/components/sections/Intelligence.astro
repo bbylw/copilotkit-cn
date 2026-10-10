@@ -1,0 +1,80 @@
+---
+import ArrowOut from "../ArrowOut.astro";
+
+const capabilities = [
+  {
+    n: "01",
+    kicker: "Rich Threads",
+    head: "富线程",
+    body: "对话跨越刷新、设备与会话留存，消息、生成式界面与实时运行记录都原样恢复。",
+  },
+  {
+    n: "02",
+    kicker: "User Memories",
+    head: "用户记忆",
+    body: "跨对话持久保存事实与偏好，按语义召回，而不是关键词匹配。",
+  },
+  {
+    n: "03",
+    kicker: "Automatic Learning",
+    head: "自动学习",
+    body: "已完成的线程转化为有据可循的洞察，以及经评审、可复用的技能。",
+  },
+  {
+    n: "04",
+    kicker: "Self-hosting",
+    head: "私有化部署",
+    body: "同一套平台，运行在你自己的 Kubernetes 集群、VPC 或数据边界之内。",
+  },
+  {
+    n: "05",
+    kicker: "Product Analytics",
+    head: "产品分析",
+    body: "从同一份交互数据里，看清智能体在做什么，用户在哪里真正获得价值。",
+  },
+];
+---
+
+<section class="relative overflow-hidden border-t border-white/8 py-24 md:py-32">
+  <div class="shell">
+    <div class="mb-12 max-w-[60ch]">
+      <h2 class="text-3xl leading-[1.15] font-medium text-mist-50 md:text-[2.5rem]" data-reveal>
+        Intelligence 智能增强
+      </h2>
+      <p class="mt-5 leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+        它兼容你现有的 CopilotKit 应用与智能体框架，既可以使用托管平台，也可以部署到你自己的基础设施里。
+      </p>
+      <p data-reveal style="--reveal-delay: 120">
+        <a
+          href="/intelligence"
+          class="mt-5 inline-flex items-center gap-1.5 text-sm text-brand-300 transition-colors hover:text-brand-200"
+        >
+          了解 Intelligence
+          <ArrowOut />
+        </a>
+      </p>
+    </div>
+
+    <ul class="grid gap-x-10 gap-y-9 sm:grid-cols-2">
+        {
+          capabilities.map((c, i) => (
+            <li
+              class:list={[
+                "border-t border-white/12 pt-5",
+                i === capabilities.length - 1 && "sm:col-span-2",
+              ]}
+              data-reveal
+              style={`--reveal-delay: ${i * 60}`}
+            >
+              <div class="flex items-baseline gap-3">
+                <span class="mono-label text-mist-600">{c.n}</span>
+                <span class="mono-label text-brand-300">{c.kicker}</span>
+              </div>
+              <h3 class="mt-2.5 text-lg font-medium text-mist-50">{c.head}</h3>
+              <p class="mt-2 max-w-[40ch] text-sm leading-relaxed text-mist-400">{c.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+  </div>
+</section>

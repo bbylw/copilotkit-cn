@@ -1,0 +1,37 @@
+---
+import { externalLinks } from "../../data/site";
+---
+
+<section class="relative overflow-hidden border-t border-white/8 py-24 md:py-36">
+  <div
+    class="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[64rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.15] blur-[130px]"
+    style="background: radial-gradient(closest-side, var(--color-brand-500), transparent)"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="field pointer-events-none absolute inset-0 opacity-30" aria-hidden="true"></div>
+
+  <div class="shell relative">
+    <div class="mx-auto text-center" data-reveal>
+      <h2 class="text-[2.25rem] leading-[1.12] font-medium text-mist-50 md:text-[3.25rem]">
+        先接一个智能体，再谈规模
+      </h2>
+    </div>
+    <p class="mx-auto mt-6 max-w-[52ch] text-center leading-relaxed text-mist-400" data-reveal style="--reveal-delay: 60">
+      从一条命令开始，让编程智能体帮你检查项目并完成接入。有问题可以直接在社区里问。
+    </p>
+
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-3" data-reveal style="--reveal-delay: 120">
+      <a href={externalLinks.discord} target="_blank" rel="noreferrer noopener" class="cta cta-primary btn-lg">
+        加入开发者社区
+      </a>
+      <a href={externalLinks.docs} target="_blank" rel="noreferrer noopener" class="cta cta-ghost btn-lg">
+        查看完整文档
+      </a>
+    </div>
+
+    <p class="mt-12 text-center font-mono text-xs text-mist-600" data-reveal style="--reveal-delay: 180">
+      npx --yes copilotkit@latest onboard start
+    </p>
+  </div>
+</section>
