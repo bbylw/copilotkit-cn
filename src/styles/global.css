@@ -135,6 +135,15 @@
     color: var(--color-mist-600);
   }
 
+  /* CJK-safe override for mono micro type (pills, code captions, ticker tags).
+     JetBrains Mono carries no CJK glyphs, so Chinese inside mono type falls
+     back per-glyph and the wide mono tracking reads as broken spacing. */
+  .cjk-safe {
+    font-family: var(--font-sans);
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
+
   code,
   kbd,
   pre {
@@ -400,8 +409,11 @@
   }
 
   /* Kinetic headline: per-character rise on load. Base state is visible,
-     so no-JS and reduced-motion both degrade to plain static type. */
-  [data-kinetic] > span {
+     so no-JS and reduced-motion both degrade to plain static type.
+     Characters are nested inside nowrap phrase groups so CJK lines never
+     break inside a word; both levels need inline-block. */
+  [data-kinetic] > span,
+  [data-kinetic] > span > span {
     display: inline-block;
   }
 
@@ -630,7 +642,7 @@
   .ticker {
     animation: ticker-roll 13.5s var(--ease-in-out-soft) infinite;
   }
-  [data-kinetic] > span {
+  [data-kinetic] > span > span {
     opacity: 0;
     animation: rise-in 0.85s var(--ease-out-expo) forwards;
     animation-delay: calc(240ms + var(--i, 0) * 38ms);
@@ -655,6 +667,11 @@
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  /* The blanket duration clamp below would collapse the scroll-driven bar to
+     its end state instantly; hide it instead of showing a stuck-full bar. */
+  .progress-bar {
+    animation-name: none;
   }
   [data-reveal] {
     opacity: 1;

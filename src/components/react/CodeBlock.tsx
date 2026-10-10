@@ -111,7 +111,13 @@ export default function CodeBlock({ code, lang, filename, snippets }: Props) {
             ))}
           </div>
         ) : (
-          <span className="font-mono text-[11px] tracking-widest text-mist-600 uppercase">
+          <span
+            className={
+              /[一-鿿]/.test(filename ?? language ?? "code")
+                ? "cjk-safe text-[11px] tracking-[0.06em] text-mist-600"
+                : "font-mono text-[11px] tracking-widest text-mist-600 uppercase"
+            }
+          >
             {filename ?? language ?? "code"}
           </span>
         )}
@@ -129,7 +135,7 @@ export default function CodeBlock({ code, lang, filename, snippets }: Props) {
       <div className="relative">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 w-11 border-r border-white/6 bg-ink-850/40 py-4 text-right font-mono text-[11px] leading-[20px] text-mist-600/60 tabular-nums select-none"
+          className="pointer-events-none absolute inset-y-0 left-0 w-11 border-r border-white/6 bg-ink-850/40 py-4 text-right font-mono text-[11px] leading-[20px] text-mist-600 tabular-nums select-none"
         >
           {Array.from({ length: lineCount }, (_, i) => (
             <div key={i}>{i + 1}</div>

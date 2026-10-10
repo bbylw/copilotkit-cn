@@ -8,6 +8,14 @@ const ticker = [
 ];
 
 const headline = "一个智能体，连通你所有界面";
+/* Phrase groups keep CJK line breaks out of the middle of words; --i stays
+   global so the per-character rise still runs left to right across groups. */
+const phrases = ["一个智能体，", "连通你所有界面"];
+let charIndex = 0;
+const groups = phrases.map((phrase) => ({
+  phrase,
+  chars: phrase.split("").map((ch) => ({ ch, i: charIndex++ })),
+}));
 ---
 
 <section
@@ -38,9 +46,13 @@ const headline = "一个智能体，连通你所有界面";
         aria-label={headline}
       >
         {
-          headline.split("").map((ch, i) => (
-            <span style={`--i: ${i}`} aria-hidden="true">
-              {ch}
+          groups.map((group) => (
+            <span class="whitespace-nowrap">
+              {group.chars.map((c) => (
+                <span style={`--i: ${c.i}`} aria-hidden="true">
+                  {c.ch}
+                </span>
+              ))}
             </span>
           ))
         }
@@ -73,7 +85,7 @@ const headline = "一个智能体，连通你所有界面";
       style="--reveal-delay: 220; margin-right: calc(var(--pad) * -1)"
     >
       <div style="transform: translate3d(calc(var(--px, 0) * 10px), calc(var(--py, 0) * 12px), 0)">
-        <div class="relative aspect-[4/3] w-full overflow-hidden rounded-l-2xl border-y border-l border-white/10 bg-white lg:aspect-[16/10]">
+        <div class="relative aspect-[4/3] w-full overflow-hidden rounded-l-2xl border-y border-l border-white/10 bg-ink-850 lg:aspect-[16/10]">
           <picture>
             <source media="(prefers-reduced-motion: reduce)" srcset="/images/agent-flow-static.webp" />
             <img
@@ -105,7 +117,7 @@ const headline = "一个智能体，连通你所有界面";
                     {
                       ticker.map((t) => (
                         <li class="flex h-9 shrink-0 items-baseline gap-2.5 overflow-hidden">
-                          <span class="shrink-0 font-mono text-[10.5px] tracking-[0.14em] text-brand-300 uppercase">
+                          <span class="cjk-safe shrink-0 text-[10.5px] tracking-[0.06em] text-brand-300">
                             {t.kind}
                           </span>
                           <span class="truncate font-mono text-xs text-mist-400">{t.text}</span>
@@ -115,7 +127,7 @@ const headline = "一个智能体，连通你所有界面";
                   </ul>
                 </div>
               </div>
-              <span class="pill hidden shrink-0 md:inline-flex">MIT · 开源</span>
+              <span class="pill cjk-safe hidden shrink-0 md:inline-flex">MIT · 开源</span>
             </div>
           </div>
         </div>

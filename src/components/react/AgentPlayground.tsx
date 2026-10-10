@@ -525,7 +525,7 @@ function FlightBoard({ flights }: { flights: readonly Flight[] }) {
     <div className="overflow-hidden rounded-xl border border-white/10 bg-ink-850/70">
       <div className="flex items-center gap-2 border-b border-white/8 px-3.5 py-2">
         <span className="label-muted">航班比价面板</span>
-        <span className="pill ml-auto">示例数据</span>
+        <span className="pill cjk-safe ml-auto">示例数据</span>
       </div>
       <ul className="divide-y divide-white/6">
         {flights.map((f) => (

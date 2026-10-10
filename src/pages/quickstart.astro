@@ -60,6 +60,7 @@ const outcomes = [
     heading="三种接入方式，选一条"
     lede="每条路径都能独立完成一次完整接入。你可以交给编程智能体处理，也可以手动执行命令。"
     note="接入命令在项目根目录运行，不会改动你已有的业务代码。"
+    actions={false}
   />
 
   <section class="py-20 md:py-28">
@@ -115,7 +116,6 @@ const outcomes = [
           <CodeBlock
             code={installs[0].code}
             lang="bash"
-            filename="安装核心包"
             snippets={installs}
             client:visible
           />
